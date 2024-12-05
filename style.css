@@ -1,0 +1,33 @@
+.navbar .collapse ul li:hover{
+  background-color: #0a7d22;
+  transition: all 0.3s ease;
+}
+
+.navbar .collapse ul li .dropdown-menu .dropdown-item:hover{
+  background-color: #eeeeee;
+  transition: all 0.3s ease;
+}
+
+table th {
+   text-align: center;
+}
+
+table td {
+   text-align: center;
+}
+
+select option{
+  text-align: center;
+}
+
+tr {
+   line-height: 3px;
+   min-height: 3px;
+   height: 3px;
+}
+
+td {
+   line-height: 3px;
+   min-height: 3px;
+   height: 3px;
+}

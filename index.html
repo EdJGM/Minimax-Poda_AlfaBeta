@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="tree.js"></script>
+  <script type="text/javascript" src="utilities.js"></script>
+  <script type="text/javascript" src="animations.js"></script>
+  <script type="text/javascript" src="parsertree.js"></script>
+  <script type="text/javascript" src="parserSML.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>  
+  <style>
+
+	#nodeOptions {
+		display: none;
+    background-color: #f2f2f2;
+    border: 1px solid gray;
+    box-shadow: 1px 1px 1px 1px;
+    font-size: 11px;
+    padding: 3px 5px;
+	}
+  #infoTab{
+  border-left: 3px;
+  border-left-style: solid;
+  border-color: #abc5f9;
+}
+
+	#nodeOptions div {
+		cursor: default;
+    border-bottom: 1px solid gray;
+    padding: 2px 4px;
+    color: black;
+	}
+
+  #nodeOptions div:hover{
+    background: rgb(217,217,217);
+  }
+
+	#main {
+		margin: auto;
+		position: relative;
+	}
+  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description"
+    content="A tool to help students understand minimax and alpha-beta pruning." />
+  <title>Minimax & Poda Alfa-Beta Visualizador</title>
+</head>
+
+<body onload='initKey(); initRoot();'>
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #06611a;">
+  <a class="navbar-brand" href="#" style="color: #f2f2f2">Busquedas Entre Adversarios</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <!--<li class="nav-item active" id="infoTab" style="font-size: 18px; padding-right: 10px;">
+          <a class="nav-link" href="https://github.com/Sarose550/Minimax-Visualizer/blob/main/README.md"> About <span class="sr-only">(current)</span></a>
+      </li>-->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #f2f2f2">
+          Editar
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+          <a class="dropdown-item" href="#" onclick="hideButtons();resetTree();unhighlightCells(); style="color: #f2f2f2"">Limpiar Padres</a>
+          <!--<a class="dropdown-item" href="#" onclick="hideButtons();initRoot();">Resetear</a>-->
+        </div>
+      </li>
+    <!--<li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Options
+        </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+              <a class="dropdown-item" href="#" onclick="copyTree();">Copy Tree</a>
+              <a class="dropdown-item" href="#" onclick="loadTreeCode();">Load Tree</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#" onclick="copyExplicitTree();">Copy SML</a>
+              <a class="dropdown-item" href="#" onclick="loadExplicitTree();">Load SML</a>
+          </div>
+    </li>-->
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #f2f2f2">
+        Ejemplos
+      </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown3">
+          <a class="dropdown-item" href="#" onclick="hideButtons();drawEx1();">Ejemplo 1</a>
+          <a class="dropdown-item" href="#" onclick="hideButtons();drawEx2();">Ejemplo 2</a>
+          <a class="dropdown-item" href="#" onclick="hideButtons();drawEx3();">Ejemplo 3</a>
+          <a class="dropdown-item" href="#" onclick="hideButtons();drawEx4();">Ejemplo 4</a>
+          <a class="dropdown-item" href="#" onclick="hideButtons();drawEx5();">Ejemplo 5</a>
+        </div>
+    </li>
+
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #f2f2f2">
+        Ejecutar
+      </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown4">
+          <a class="dropdown-item" href="#" onclick="compileMinimax();">Minimax</a>
+          <a class="dropdown-item" href="#" onclick="compileAlphaBeta();">Poda Alfa-Beta</a>
+        </div>
+    </li>
+  </ul>
+  <span class="navbar-text" id="speedLabel" style="display: none;">
+    <b>Velocidad:</b>
+  </span>
+  <ul class="navbar-nav navbar-right mr-auto">
+    <span id="detector">
+    <select name="speed" id="speed" style="padding: 3px; margin: 10px; display: none;">
+        <option value="0.25">0.25x</option>
+        <option value="0.5">0.5x</option>
+        <option value="0.75">0.75x</option>
+        <option value="1.00" selected>Normal</option>
+        <option value="1.50">1.5x</option>
+        <option value="2.00">2x</option>
+        <option value="4.00">4x</option>
+    </select>
+  </span>
+    <button class="btn btn-success navbar-btn-right mr-1" id="button0" style="display: none;" onclick="showFirst();" disabled> << </button>
+    <button class="btn btn-success navbar-btn-right mr-1" id="button1" style="display: none;" onclick="showPrev();" disabled> < </button>
+    <button class="btn btn-success navbar-btn-right mr-1" id="button2" style="display: none;" onclick="playBtnClick();"> Play </button>
+    <button class="btn btn-success navbar-btn-right mr-1" id="button3" style="display: none;" onclick="showNext();"> > </button>
+    <button class="btn btn-success navbar-btn-right mr-1" id="button4" style="display: none;" onclick="showLast();"> >> </button>
+  </ul>
+</nav>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Control de Poda-αβ</th>
+      <th scope="col">Información</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <table class="table table-bordered" id="ab">
+          <thead>
+            <tr>
+              <th scope=col></th>
+              <th scope="col">v ≤ α</th>
+              <th scope="col"> α < v < β </th>
+              <th scope="col"> β ≤ v </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="maxierow">
+              <th scope="row">Maximo</th>
+              <td id="0,0">Ignorar</td>
+              <td id="0,1">Actualizar α</td>
+              <td id="0,2">Podar</td>
+            </tr>
+            <tr id="minnierow">
+              <th scope="row">Minimo</th>
+              <td id="1,0">Podar</td>
+              <td id="1,1">Actualizar β</td>
+              <td id="1,2">Ignorar</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+      <td>
+        <table class="table table-bordered" id="key">
+          <thead>
+            <tr>
+              <th scope="col">Maximo</th>
+              <th scope="col">Minimo</th>
+              <th scope="col">Hoja</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding-top=0px; padding-bottom=0px; padding-left=0px; padding-right=0px;">
+                <canvas width="80" height="35" id="key-maxie" style="position: relative; top:0px; left:0px;">
+                  ¡Oh no! ¡Tu navegador es demasiado antiguo para soportar canvas! Actualizar para ver esta página.
+                </canvas>
+              </td>
+              <td style="padding-top=0px; padding-bottom=0px; padding-left=0px; padding-right=0px;">
+                <canvas width="80" height="35" id="key-minnie" style="position: relative; top:0px; left:0px;">
+                  ¡Oh no! ¡Tu navegador es demasiado antiguo para soportar canvas! Actualizar para ver esta página.
+                </canvas>
+              </td>
+              <td style="padding-top=0px; padding-bottom=0px; padding-left=0px; padding-right=0px;">
+                <canvas width="80" height="35" id="key-leaf" style="position: relative; top:0px; left:0px;">
+                  ¡Oh no! ¡Tu navegador es demasiado antiguo para soportar canvas! Actualizar para ver esta página.
+                </canvas>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div>
+  <label for="width">Anchura:</label>
+  <input type="number" id="width" name="width" min="1" value="2">
+  <label for="depth">Profundidad:</label>
+  <input type="number" id="depth" name="depth" min="1" value="3">
+  <button onclick="updateTree()">Crear/Actualizar Árbol</button>
+</div>
+
+<div id="canvasContainer" style="overflow: auto; width: 100%; height: 600px;">
+  <canvas width="1200" height="600" id="drawing" style="position: relative; top:0px; left:0px;">
+    ¡Oh no! ¡Tu navegador es demasiado antiguo para soportar canvas! Actualizar para ver esta página.
+  </canvas>
+</div>
+<!--
+<div id="main" >
+  <canvas width="1200" height="600" id="drawing" style="position: relative; top:0px; left:0px;">
+		¡Oh no! ¡Tu navegador es demasiado antiguo para soportar canvas! Actualizar para ver esta página.
+	</canvas>
+  <div id="nodeOptions" style="position: absolute; display: none; background-color: #f2f2f2; border: 1px solid gray; box-shadow: 1px 1px 1px 1px; font-size: 11px; padding: 3px 5px;">
+  </div>
+</div>
+-->
+
+</body>
+
+
+</html>
