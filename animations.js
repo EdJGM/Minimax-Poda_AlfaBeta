@@ -103,7 +103,7 @@ function showPrev(){
 
 function compileMinimax(){
   if(!isTree(root)){
-    alert("Must assign values to all leaf nodes first.");
+    alert("Primero debe asignar valores a todos los nodos hoja.");
     return;
   }
   isEditing = false;
@@ -112,9 +112,17 @@ function compileMinimax(){
   enableButton(3,4);
   drawTreeCode(toTreeCode(root));
   initSteps();
+
+  const startTime = performance.now(); // Start time
+
   //console.log(steps);
   //steps.loadFrame();
   compileMinimaxHelper(root, root, steps);//the first frame holds the starting configuration
+
+  const endTime = performance.now(); // End time
+  const executionTime = endTime - startTime; // Calculate execution time
+  displayExecutionTime('Minimax', executionTime); // Display execution time
+
   root.status = SEARCHED;
   steps.addFrame(new Frame(root));
 
@@ -163,7 +171,7 @@ function compileMinimaxHelper(tree, selectedNode, frames){
 
 function compileAlphaBeta(){
   if(!isTree(root)){
-    alert("Must assign values to all leaf nodes first.");
+    alert("Primero debe asignar valores a todos los nodos hoja.");
     return;
   }
   isEditing = false;
@@ -172,9 +180,17 @@ function compileAlphaBeta(){
   enableButton(3,4);
   drawTreeCode(toTreeCode(root));
   initSteps();
+
+  const startTime = performance.now(); // Start time
+
   //console.log(steps);
   //steps.loadFrame();
   compileAlphaBetaHelper(root, root, Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY, steps);//the first frame holds the starting configuration
+
+  const endTime = performance.now(); // End time
+  const executionTime = endTime - startTime; // Calculate execution time
+  displayExecutionTime('Alpha-Beta', executionTime); // Display execution time
+
   if(root.status != PRUNED){
     root.status = SEARCHED;
     steps.addFrame(new Frame(root));
@@ -326,4 +342,9 @@ function animate(){
 
 function setSpeed(rate){
   speed = rate;
+}
+
+function displayExecutionTime(algorithm, time) {
+  const executionTimeElement = document.getElementById('executionTime');
+  executionTimeElement.innerHTML = `${algorithm} Tiempo de ejecución: ${time.toFixed(2)} ms`;
 }
