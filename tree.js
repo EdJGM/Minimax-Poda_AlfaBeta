@@ -544,7 +544,7 @@ function showNodeOptions(e, selectedNode, idx) {
   nodeOptions.innerHTML = "";
 
   var addChildDiv = document.createElement('div');
-  addChildDiv.innerHTML = "Add Child";
+  addChildDiv.innerHTML = "Añadir hijo";
   addChildDiv.onclick = function() {
     nodeOptions.style.display = 'none';
     selectedNode.sprout();
@@ -554,7 +554,7 @@ function showNodeOptions(e, selectedNode, idx) {
 
   if (selectedNode.children.length > 0) {
     var deleteChildDiv = document.createElement('div');
-    deleteChildDiv.innerHTML = "Delete Child";
+    deleteChildDiv.innerHTML = "Eliminar hijo";
     deleteChildDiv.onclick = function() {
       nodeOptions.style.display = 'none';
       selectedNode.children[selectedNode.children.length - 1].die(selectedNode.children.length - 1);
