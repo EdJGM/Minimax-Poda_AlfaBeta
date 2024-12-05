@@ -563,9 +563,32 @@ function showNodeOptions(e, selectedNode, idx) {
     nodeOptions.appendChild(deleteChildDiv);
   }
 
-  nodeOptions.style.left = e.offsetX + 'px';
-  nodeOptions.style.top = e.offsetY + 'px';
-  nodeOptions.style.display = 'block';
+    // Obtener el rectángulo del canvas y ajustar las coordenadas
+    const canvas = document.getElementById("drawing");
+    const rect = canvas.getBoundingClientRect();
+    const offsetX = e.clientX - rect.left; // Posición relativa al canvas
+    const offsetY = e.clientY - rect.top;
+
+    // Ajustar la posición del menú contextual
+    let menuLeft = offsetX + rect.left;
+    let menuTop = offsetY + rect.top;
+
+    // Obtener dimensiones del menú
+    const menuWidth = nodeOptions.offsetWidth || 100;
+    const menuHeight = nodeOptions.offsetHeight || 50;
+
+    // Asegurarse de que el menú no se salga de los bordes del contenedor
+    if (menuLeft + menuWidth > window.innerWidth) {
+      menuLeft = window.innerWidth - menuWidth;
+    }
+    if (menuTop + menuHeight > window.innerHeight) {
+      menuTop = window.innerHeight - menuHeight;
+    }
+
+    // Aplicar las coordenadas al menú
+    nodeOptions.style.left = menuLeft + 'px';
+    nodeOptions.style.top = menuTop + 'px';
+    nodeOptions.style.display = 'block';
 }
 
 document.getElementById("drawing").addEventListener('mousedown', (e) => { mouseClick(e); }, false);
