@@ -72,6 +72,6 @@ Estos archivos contienen los analizadores sintácticos generados por PEG.js para
 
 ## Enlaces
 
-- [GitHub Pages Link](https://github.com/EdJGM/Minimax-Poda_AlfaBeta.git/)
+- [GitHub Pages Link]([https://github.com/EdJGM/Minimax-Poda_AlfaBeta.git/](https://edjgm.github.io/Minimax-Poda_AlfaBeta/))
 
 Construido con HTML, CSS, JavaScript.
