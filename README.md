@@ -72,6 +72,6 @@ Estos archivos contienen los analizadores sintácticos generados por PEG.js para
 
 ## Enlaces
 
-- [GitHub Pages Link](https://sarose550.github.io/Minimax-Visualizer/)
+- [GitHub Pages Link](https://github.com/EdJGM/Minimax-Poda_AlfaBeta.git/)
 
 Construido con HTML, CSS, JavaScript.
