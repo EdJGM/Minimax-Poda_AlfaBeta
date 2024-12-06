@@ -69,7 +69,7 @@
           Editar
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-          <a class="dropdown-item" href="#" onclick="hideButtons();resetTree();unhighlightCells(); style="color: #f2f2f2"">Limpiar Padres</a>
+          <a class="dropdown-item" href="#" onclick="hideButtons();resetTree();unhighlightCells();" >Limpiar Padres</a>
           <!--<a class="dropdown-item" href="#" onclick="hideButtons();initRoot();">Resetear</a>-->
         </div>
       </li>
@@ -202,21 +202,22 @@
 
 <div>
   <label for="width">Anchura:</label>
-  <input type="number" id="width" name="width" min="1" value="2">
+  <input type="number" id="width" name="width" min="1" max="5" step="1" value="2" oninput="validateInput(this)">
   <label for="depth">Profundidad:</label>
-  <input type="number" id="depth" name="depth" min="1" value="3">
-  <button onclick="updateTree()">Crear/Actualizar Árbol</button>
+  <input type="number" id="depth" name="depth" min="1" max="5" step="1" value="3" oninput="validateInput(this)">
+  <button onclick="validateAndCreateTree()">Crear/Actualizar Árbol</button>
 </div>
 
 <div id="executionTime" style="margin: 10px; font-weight: bold;"></div>
 
-<div id="canvasContainer" style="overflow: auto; width: 100%; height: 600px;">
-  <canvas width="1200" height="600" id="drawing" style="position: relative; top:0px; left:0px;">
+<div id="canvasContainer" style="overflow: auto; width: 100%; height: 800px;"> 
+  <canvas width="1200" height="800" id="drawing" style="position: relative; top:10px; left:100px;">
     ¡Oh no! ¡Tu navegador es demasiado antiguo para soportar canvas! Actualizar para ver esta página.
   </canvas>
   <div id="nodeOptions" style="position: absolute; display: none; background-color: #f2f2f2; border: 1px solid gray; box-shadow: 1px 1px 1px 1px; font-size: 11px; padding: 3px 5px;">
   </div>
 </div>
+
 <!--
 <div id="main" >
   <canvas width="1200" height="600" id="drawing" style="position: relative; top:0px; left:0px;">

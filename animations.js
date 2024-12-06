@@ -128,6 +128,7 @@ function compileMinimax(){
 
   //Reset the tree to its original state
   isEditing = true;
+  document.getElementById("drawing").addEventListener('mousedown', (e) => { mouseClick(e); }, false);
 }
 
 function compileMinimaxHelper(tree, selectedNode, frames){

@@ -408,3 +408,31 @@ function createTree(node, width, depth, currentLevel) {
     createTree(child, width, depth, currentLevel + 1);
   }
 }
+
+function validateInput(input) {
+  // Eliminar caracteres no numéricos
+  input.value = input.value.replace(/[^0-9]/g, '');
+
+  // Asegurarse de que el valor esté dentro del rango permitido
+  if (input.value !== '') {
+    let value = parseInt(input.value);
+    if (value < 1) {
+      input.value = 1;
+    } else if (value > 5) {
+      input.value = 5;
+    }
+  }
+}
+
+function validateAndCreateTree() {
+  const width = parseInt(document.getElementById("width").value);
+  const depth = parseInt(document.getElementById("depth").value);
+
+  if (isNaN(width) || isNaN(depth) || width < 1 || width > 5 || depth < 1 || depth > 5) {
+    alert("Por favor, ingrese valores válidos para anchura y profundidad (1-5).");
+    return;
+  }
+
+  updateTree();
+}
+

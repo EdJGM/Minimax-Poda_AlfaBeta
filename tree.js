@@ -189,13 +189,16 @@ function resizeCanvas(width, height) {
 function positionNodes(rootNode, numLeaves){
   var currentSlot = new Array();
   currentSlot.push(1);
+
   positionNodesHelper(rootNode,numLeaves,currentSlot);
 
   // Ajusta el tamaño del canvas según el tamaño del árbol
   var maxX = findMaxX(rootNode);
   var maxY = findMaxY(rootNode);
   resizeCanvas(maxX + 100, maxY + 100); // Añade un margen de 100px  
+
 }
+
 
 function findMaxX(node) {
   var maxX = node.x;
@@ -214,8 +217,10 @@ function findMaxY(node) {
 }
 
 function positionNodesHelper(rootNode,numLeaves,currentSlot){
-  if(rootNode.type == LEAF){
-    rootNode.x = currentSlot[0] / (numLeaves + 1) * canvasWidth;
+  const minLeafSpacing = 50; // Espacio mínimo entre hojas
+  const totalSpacing = Math.max(minLeafSpacing * numLeaves, canvasWidth);   
+  if(rootNode.type == LEAF){  
+    rootNode.x = (currentSlot[0] / (numLeaves + 1)) * totalSpacing;    
     currentSlot[0]++;
     return;
   }
@@ -595,13 +600,11 @@ document.getElementById("drawing").addEventListener('mousedown', (e) => { mouseC
 
 function showEditValueDialog(node) {
   Swal.fire({
-    title: 'Edit Node Value',
+    title: 'Editar valor de nodo',
     html: `
       <div>
-        <p>Node Information:</p>
-        <p>Type: ${node.type == MAXIE ? 'Maxie' : 'Minnie'}</p>
-        <p>Current Value: ${node.val !== null ? node.val : 'None'}</p>
-        <input type="number" id="nodeValue" class="swal2-input" placeholder="Enter new value">
+        <p>Valor Actual: ${node.val !== null ? node.val : 'Ninguno'}</p>
+        <input type="number" id="nodeValue" class="swal2-input" placeholder="Introduce un nuevo valor">
       </div>
     `,
     //focusConfirm: false,
@@ -612,7 +615,7 @@ function showEditValueDialog(node) {
     preConfirm: () => {
       const value = Swal.getPopup().querySelector('#nodeValue').value;
       if (!value || isNaN(value)) {
-        Swal.showValidationMessage(`Please enter a valid number`);
+        Swal.showValidationMessage(`Por favor ingresa un número válido`);
       }
       return { value: parseFloat(value) };
     }
