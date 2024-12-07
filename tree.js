@@ -217,7 +217,7 @@ function findMaxY(node) {
 }
 
 function positionNodesHelper(rootNode,numLeaves,currentSlot){
-  const minLeafSpacing = 50; // Espacio mínimo entre hojas
+  const minLeafSpacing = 80; // Espacio mínimo entre hojas
   const totalSpacing = Math.max(minLeafSpacing * numLeaves, canvasWidth);   
   if(rootNode.type == LEAF){  
     rootNode.x = (currentSlot[0] / (numLeaves + 1)) * totalSpacing;    
@@ -327,7 +327,7 @@ function writeValue(canvasID){
     return;
   }
 	else if (!isNumber(value)) {
-		alert("Input must be an integer or a decimal.");
+		alert("La entrada debe ser un número entero o un decimal.");
 		return;
 	}
 	this.val = parseFloat(value);
@@ -410,10 +410,10 @@ function drawNode(canvasID,outlineColor="black"){
     var startingStr = "";
     if(this.status == PRUNED){
       if(this.type == MAXIE){
-        startingStr = "≥";
+        startingStr = "";//≥
       }
       if(this.type == MINNIE){
-        startingStr = "≤";
+        startingStr = "";//≤
       }
     }
     if(this.status == DISCARDED){
@@ -458,8 +458,8 @@ if (this.type !== LEAF && this.alpha !== null && this.beta !== null) {
   ctx.font = "15px 'Courier New'";
   var alphaStr = this.alpha === Number.POSITIVE_INFINITY ? "∞" : this.alpha === Number.NEGATIVE_INFINITY ? "-∞" : this.alpha;
   var betaStr = this.beta === Number.POSITIVE_INFINITY ? "∞" : this.beta === Number.NEGATIVE_INFINITY ? "-∞" : this.beta;
-  ctx.fillText(`α: ${alphaStr}`, this.x + nodeCircRadius + 5, this.y - nodeCircRadius + 5);
-  ctx.fillText(`β: ${betaStr}`, this.x + nodeCircRadius + 5, this.y - nodeCircRadius + 20);
+  ctx.fillText(`α:${alphaStr}`, this.x + nodeCircRadius - 90, this.y - nodeCircRadius + 17);
+  ctx.fillText(`β:${betaStr}`, this.x + nodeCircRadius - 90, this.y - nodeCircRadius + 30);
 }
 
 }
@@ -568,31 +568,40 @@ function showNodeOptions(e, selectedNode, idx) {
     nodeOptions.appendChild(deleteChildDiv);
   }
 
-    // Obtener el rectángulo del canvas y ajustar las coordenadas
+    // Obtener las dimensiones del canvas y del contenedor
     const canvas = document.getElementById("drawing");
-    const rect = canvas.getBoundingClientRect();
-    const offsetX = e.clientX - rect.left; // Posición relativa al canvas
-    const offsetY = e.clientY - rect.top;
+    const container = document.getElementById("canvasContainer");
+    const rect = canvas.getBoundingClientRect(); // Obtener coordenadas absolutas del canvas
+    const containerScrollTop = container.scrollTop; // Desplazamiento vertical del contenedor
+    const containerScrollLeft = container.scrollLeft; // Desplazamiento horizontal del contenedor
 
-    // Ajustar la posición del menú contextual
-    let menuLeft = offsetX + rect.left;
-    let menuTop = offsetY + rect.top;
+    // Calcular la posición del menú
+    const menuLeft = rect.left + selectedNode.x - containerScrollLeft; // Coordenada x del nodo relativa al canvas
+    const menuTop = rect.top + selectedNode.y - containerScrollTop + nodeCircRadius + 5; // Coordenada y del nodo relativa al canvas
 
-    // Obtener dimensiones del menú
+    // Asegurarse de que el menú no se salga de los bordes de la ventana
     const menuWidth = nodeOptions.offsetWidth || 100;
     const menuHeight = nodeOptions.offsetHeight || 50;
 
-    // Asegurarse de que el menú no se salga de los bordes del contenedor
-    if (menuLeft + menuWidth > window.innerWidth) {
-      menuLeft = window.innerWidth - menuWidth;
+    let adjustedLeft = menuLeft;
+    let adjustedTop = menuTop;
+
+    if (adjustedLeft + menuWidth > window.innerWidth) {
+        adjustedLeft = window.innerWidth - menuWidth - 10;
     }
-    if (menuTop + menuHeight > window.innerHeight) {
-      menuTop = window.innerHeight - menuHeight;
+    if (adjustedLeft < 0) {
+        adjustedLeft = 10;
+    }
+    if (adjustedTop + menuHeight > window.innerHeight) {
+        adjustedTop = window.innerHeight - menuHeight - 10;
+    }
+    if (adjustedTop < 0) {
+        adjustedTop = 10;
     }
 
-    // Aplicar las coordenadas al menú
-    nodeOptions.style.left = menuLeft + 'px';
-    nodeOptions.style.top = menuTop + 'px';
+    // Aplicar posición ajustada
+    nodeOptions.style.left = `${adjustedLeft}px`;
+    nodeOptions.style.top = `${adjustedTop}px`;
     nodeOptions.style.display = 'block';
 }
 

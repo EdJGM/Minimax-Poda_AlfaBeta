@@ -5,25 +5,23 @@ Minimax  Y Poda Alfa-Beta Visualizador es una herramienta diseñada para poder v
 ## Cómo Usar
 
 1. **Crear un Árbol**:
-   - Puedes hacer clic en los nodos y usar el menú resultante para cambiar sus valores o agregar/eliminar hijos.
-   - Alternativamente, ve a `Ver Ejemplo` y selecciona una de las opciones para cargar un árbol de ejemplo.
+   - Se ingresa la anchura y profundidad seguido de presionar el botón para crear.
+   - En nodos no finales se pueden incrementar o disminuir hojas, solo con un clic en el nodo específico.
+   - Los valores de los nodos finales se los ingresa clicando sobre estos, lo que desplegará un prompt para ingresar el valor numérico.
+   - Alternativamente, puede ir a `Ver Ejemplo` y seleccionar una de las opciones para cargar un árbol de ejemplo.
 
 2. **Ejecutar Algoritmos**:
-   - Una vez que todos los nodos hoja tengan valores asignados, selecciona `Ejecutar` para ver `Minimax` o `Poda Alfa-Beta`.
-   - Puedes controlar la velocidad y presionar `Pausa`/`Reproducir` para detener o reanudar la animación.
-   - Usa los dos botones internos, o las teclas de flecha izquierda/derecha, para moverte hacia adelante o hacia atrás paso a paso.
-   - Usa los dos botones externos para saltar al inicio o al final.
+   - Una vez que todos los nodos hoja tengan valores asignados, seleccione `Ejecutar` para ver `MiniMax` o `Poda Alfa-Beta`.
+   - Puede controlar la velocidad y presionar `Pausa/Reproducir` para detener o reanudar la animación.
 
-4. **Editar el Árbol**:
-   - Una vez que hayas terminado de animar, ve a `Editar`.
-   - Selecciona `Limpiar Padres` si deseas editar el árbol. Esto borrará cualquier cambio hecho por la animación y mostrará el árbol en su forma original.
+3. **Editar el Árbol**:
+   - Una vez que haya terminado de animar, puede crear otro árbol o trabajar con el mismo tan solo yendo a `Editar`, y seleccionar `Limpiar Padres`. Esto borrará cualquier cambio hecho por la animación y mostrará el árbol en su forma original.
 
 ## Características
 
 ### Animaciones
 
 - **Nodos**:
-  - Consulta la clave en la esquina superior derecha para aprender las representaciones simbólicas de los nodos.
   - Un nodo delineado en negro indica que no ha sido buscado.
   - Un nodo resaltado en rojo indica que está siendo buscado/actualizado.
   - Un nodo delineado en rojo indica que está siendo evaluado y espera una actualización de uno de sus subárboles.
