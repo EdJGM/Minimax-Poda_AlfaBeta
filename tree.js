@@ -39,53 +39,6 @@ function Node(){
   this.die = killSelf;
 }
 
-function drawInterval(start,end,alphabeta,context){
-  /*
-  if(alphabeta == null){
-    //not an alpha-beta node, or the edge has been discarded, or it hasn't been searched yet
-    return;
-  }
-  var theta;
-  //now, we do casework to find the angle
-  var dx = start.x - end.x;
-  var dy = start.y - end.y;//ig this should always be levelSpace but nice for generality
-  if(dx == 0){
-    theta = -Math.PI/2;
-  }
-  else{
-    theta = Math.atan(dy / dx);
-  }
-  var y = -9;
-  var intervalStr = "(" + alphabetaToString(alphabeta[0]) + ", " + alphabetaToString(alphabeta[1]) + ")";
-  var newx = (start.x + end.x)/2;
-  var newy = (start.y + end.y)/2;
-  context.save();
-  context.translate(newx,newy);
-  context.rotate(theta);
-  context.textAlign = "center";
-  if(end.status == BOLD && end.val != null){
-    if(dx == 0){
-      context.font = "bold 19px 'Courier New'"
-    }
-    else{
-      context.font = "bold 20px 'Courier New'";
-    }
-    context.fillStyle = "blue";
-    y = -11;
-  }
-  else if(dx == 0){
-    context.font = "bold 15px 'Courier New'";
-    context.fillStyle = "black";
-  }
-  else{
-    context.font = "bold 16px 'Courier New'";
-    context.fillStyle = "black";
-  }
-  context.fillText(intervalStr,0,y);
-  context.restore();
-  */
-}
-
 function pruneEdge(start,end,context){
   var theta;
   var dx = start.x - end.x;
@@ -681,4 +634,51 @@ function isInLeaf(x,y,center_x,center_y){
   var dx = x-center_x;
   var dy = y-center_y;
   return Math.abs(dx) <= width/2 && Math.abs(dy) <= leafHeight/2;
+}
+
+function drawInterval(start,end,alphabeta,context){
+  /*
+  if(alphabeta == null){
+    //not an alpha-beta node, or the edge has been discarded, or it hasn't been searched yet
+    return;
+  }
+  var theta;
+  //now, we do casework to find the angle
+  var dx = start.x - end.x;
+  var dy = start.y - end.y;//ig this should always be levelSpace but nice for generality
+  if(dx == 0){
+    theta = -Math.PI/2;
+  }
+  else{
+    theta = Math.atan(dy / dx);
+  }
+  var y = -9;
+  var intervalStr = "(" + alphabetaToString(alphabeta[0]) + ", " + alphabetaToString(alphabeta[1]) + ")";
+  var newx = (start.x + end.x)/2;
+  var newy = (start.y + end.y)/2;
+  context.save();
+  context.translate(newx,newy);
+  context.rotate(theta);
+  context.textAlign = "center";
+  if(end.status == BOLD && end.val != null){
+    if(dx == 0){
+      context.font = "bold 19px 'Courier New'"
+    }
+    else{
+      context.font = "bold 20px 'Courier New'";
+    }
+    context.fillStyle = "blue";
+    y = -11;
+  }
+  else if(dx == 0){
+    context.font = "bold 15px 'Courier New'";
+    context.fillStyle = "black";
+  }
+  else{
+    context.font = "bold 16px 'Courier New'";
+    context.fillStyle = "black";
+  }
+  context.fillText(intervalStr,0,y);
+  context.restore();
+  */
 }
